@@ -184,6 +184,9 @@ neutron
 [neutron-lbaas-agent:children]
 neutron
 
+[neutron-sriov-agent:children]
+neutron
+
 [neutron-metadata-agent:children]
 neutron
 
