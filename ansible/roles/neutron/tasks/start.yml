@@ -248,6 +248,24 @@
        or (inventory_hostname in groups['compute'] and enable_neutron_dvr | bool))
     - not enable_neutron_vpnaas | bool
 
+- name: Starting neutron-sriov-agent container
+  kolla_docker:
+    action: "start_container"
+    common_options: "{{ docker_common_options }}"
+    image: "{{ neutron_sriov_agent_image_full }}"
+    name: "neutron_sriov_agent"
+    privileged: True
+    volumes:
+      - "{{ node_config_directory }}/neutron-sriov-agent/:{{ container_config_directory }}/:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/run:/run:shared"
+      - "/run/netns/:/run/netns/:shared"
+      - "neutron_metadata_socket:/var/lib/neutron/kolla/"
+      - "kolla_logs:/var/log/kolla/"
+  when:
+    - (inventory_hostname in groups['neutron-sriov-agent']
+       or (inventory_hostname in groups['compute'] and enable_neutron_sriov | bool))
+
 - name: Starting neutron-lbaas-agent container
   kolla_docker:
     action: "start_container"
