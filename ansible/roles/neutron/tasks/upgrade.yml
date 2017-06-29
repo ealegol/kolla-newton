@@ -7,6 +7,8 @@
         or inventory_hostname in groups['neutron-metadata-agent']
         or inventory_hostname in groups['neutron-server']
         or inventory_hostname in groups['neutron-vpnaas-agent']
+        or inventory_hostname in groups['neutron-sriov-agent']
+
 
 - include: config-neutron-fake.yml
   when:
@@ -24,3 +26,4 @@
         or inventory_hostname in groups['neutron-metadata-agent']
         or inventory_hostname in groups['neutron-server']
         or inventory_hostname in groups['neutron-vpnaas-agent']
+        or inventory_hostname in groups['neutron-sriov-agent']
